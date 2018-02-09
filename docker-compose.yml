@@ -35,7 +35,7 @@ services:
     image: jdcrain/wsuf-plugin-idonate:latest
     restart: always
     volumes:
-      - plugin-data:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
+      - plugin-data:/var/www/html
 
 # Persist mysql db locally so it isn't created and deleted each time we run up/down
 # plugin-data volume enables us to share the results from the plugin image and put it into the wordpress image
