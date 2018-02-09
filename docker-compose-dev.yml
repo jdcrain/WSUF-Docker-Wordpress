@@ -31,7 +31,8 @@ services:
   idonate-plugin:
     depends_on:
       - db
-    image: jdcrain/wsuf-plugin-idonate:latest
+    build: 
+      context: ../WSUWP-Plugin-iDonate
     restart: always
     volumes:
       - ../WSUWP-Plugin-iDonate:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
