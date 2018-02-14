@@ -15,33 +15,18 @@ services:
   wordpress:
     depends_on:
       - db
-      - idonate-plugin
     image: wordpress:latest
     ports:
       - 8000:80
     restart: always
     volumes:
       - .:/var/www/html/wp-content # takes files from the local root and places them in the /var/www/html/wp-content directory of the container
-      - ../WSUWP-Plugin-iDonate:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
-      - plugin:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
 
-  idonate-plugin:
-    depends_on:
-      - db
-    build: 
-      context: ../WSUWP-Plugin-iDonate
-    ports:
-      - "9000:80"
-    restart: always
-    volumes:
-      - plugin:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
-
 # Persist mysql db locally so it isn't created and deleted each time we run up/down
 # plugin-data volume enables us to share the results from the plugin image and put it into the wordpress image
 volumes:
     db_data:
-    plugin:
