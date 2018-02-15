@@ -27,6 +27,5 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress
 
 # Persist mysql db locally so it isn't created and deleted each time we run up/down
-# plugin-data volume enables us to share the results from the plugin image and put it into the wordpress image
 volumes:
     db_data:
