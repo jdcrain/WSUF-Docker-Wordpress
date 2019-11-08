@@ -17,10 +17,12 @@ services:
   wordpress:
     depends_on:
       - db
-    image: wordpress:latest
+    image: wordpress:5.2.4-php7.1-apache
     ports:
       - 8000:80
     restart: always
+    depends_on:
+      - plugin
     volumes:
       - .:/var/www/html/wp-content # takes files from the local root and places them in the /var/www/html/wp-content directory of the container
       - ../WSUWP-Plugin-iDonate:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
@@ -28,14 +30,14 @@ services:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
-    
+
   plugin:
     build:
       context: ../WSUWP-Plugin-iDonate
     restart: always
     volumes:
       - ../WSUWP-Plugin-iDonate:/var/www/html
-
+      
 # Persist mysql db locally so it isn't created and deleted each time we run up/down
 volumes:
     db_data:
