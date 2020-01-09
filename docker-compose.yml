@@ -24,47 +24,20 @@ services:
     depends_on:
       - plugin
     volumes:
-      - wordpress:/var/www/html
       - .:/var/www/html/wp-content # takes files from the local root and places them in the /var/www/html/wp-content directory of the container
-      - plugin_data:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
+      - ../WSUWP-Plugin-iDonate:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
     environment:
       WORDPRESS_DB_HOST: mysql:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
-      ABSPATH: /usr/src/wordpress/
-
-  cli:
-    depends_on:
-      - mysql
-      - wordpress
-    image: wordpress:cli-php7.1
-    volumes:
-      - wordpress:/var/www/html
-      - plugin_data:/var/www/html/wp-content/plugins/WSUWP-Plugin-iDonate
-  
-  wordpress_phpunit:
-    image: chriszarate/wordpress-phpunit
-    environment:
-      PHPUNIT_DB_HOST: mysql
-    volumes:
-      - plugin_data:/app
-      - testsuite:/tmp
 
   plugin:
     build:
       context: ../WSUWP-Plugin-iDonate
     restart: always
     volumes:
-      - plugin_data:/var/www/html
-
-  composer:
-    image: composer
-    volumes:
-      - .:/app
+      - ../WSUWP-Plugin-iDonate:/var/www/html
       
 # Persist mysql db locally so it isn't created and deleted each time we run up/down
 volumes:
     db_data:
-    wordpress:
-    plugin_data:
-    testsuite:
